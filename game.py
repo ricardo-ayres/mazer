@@ -1,40 +1,16 @@
 #!/bin/env python2
-import termios
-import fcntl
-import sys
-import os
-import mazer.py
+import player
+import maze
+import cardinals
 
-def main():
-    # Terminal Setup for getting keystrokes.
-    fd = sys.stdin.fileno()
+m1 = maze.maze(1)
+p1 = player.player(m1.start_position, m1.start_heading)
 
-    oldterm = termios.tcgetattr(fd)
-    newattr = termios.tcgetattr(fd)
-    newattr[3] = newattr[3] & ~termios.ICANON & ~termios.ECHO
-    termios.tcsetattr(fd, termios.TCSANOW, newattr)
+print(m1.view(p1.position, p1.heading))
+while 1:
+    p1.execute(raw_input("p1: ").split())
+    if m1.blueprint[p1.position[0]][p1.position[1]] == 2:
+        print("Congrats! you won!")
+        quit()
+    print(m1.view(p1.position, p1.heading))
 
-    oldflags = fcntl.fcntl(fd, fcntl.F_GETFL)
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
-    
-    # Main program setup here.
-    
-    maze = maze()
-    player = player()
-
-    try:
-        # main program loop.
-        while 1:
-            command = get_keypress()
-            player.do(command)
-            maze.print_view(player.position)
-    finally:
-        # Cleaning up before exiting.
-        termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
-        fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
-
-
-
-#### Entry Point ####
-if __name__ == "__main__":
-    main()
