@@ -79,3 +79,8 @@ class maze:
                 }
         return surroundings
 
+    def check_move(self, position):
+        if self.blueprint[position[0]][position[1]] == 1:
+            return 0
+        else:
+            return 1
