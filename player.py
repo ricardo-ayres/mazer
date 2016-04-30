@@ -74,7 +74,10 @@ class player:
         else:
             return 0
 
-    def update(self):
-        self.position = self.new_position
+    def update(self, answer):
+        if answer:
+            self.position = self.new_position
+        else:
+            self.new_position = self.position
         return self.position
 

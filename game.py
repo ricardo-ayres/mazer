@@ -21,8 +21,9 @@ while 1:
         # update if valid.
         if p1.request():
             if m1.check_move(p1.new_position):
-                p1.update()
+                p1.update(1)
             else:
+                p1.update(0)
                 print("Can't move there!")
         
         # check winning condition
