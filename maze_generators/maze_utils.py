@@ -1,6 +1,5 @@
 def make_template(x_size, y_size):
     
-    cell_stack = []
     maze = []
 
     # to initialize the maze array with given size we must consider
@@ -45,3 +44,12 @@ def make_template(x_size, y_size):
     maze.append([1]*(1+x_size*2))
 
     return maze
+
+def maze_position(x_position, y_position):
+    # given the maze array in the format
+    # defined above, return the correct index
+    # for a x_position, y_position cell
+    
+    x_index = x_position*2+1
+    y_index = y_position*2+1
+    return x_index, y_index
