@@ -1,12 +1,15 @@
 import cardinals
+import depth_first
 
 class maze:
     """Maze class definition.
     this class has the purpose of keeping the maze's blueprint
     and giving out information about it as requested."""
-    def __init__(self, size):
-        self.size = size
-        self.setup(size)
+    def __init__(self, size_x, size_y=0):
+        if size_y == 0:
+            size_y = size_x
+
+        self.setup(size_x, size_y)
 
     def view(self, position, heading):
          
@@ -32,20 +35,23 @@ class maze:
         view = roofline+view_line*8+groundline+cardinals.vectors[heading]
         return view
 
-    def setup(self, size):
+    def setup(self, size_x, size_y):
         # substitute this for a generation algorithm
         # for now keep a simple small maze hardcoded for testing purposes.
-        self.blueprint = [
-        [1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 1, 1],
-        [1, 1, 1, 0, 2, 1],
-        [1, 0, 0, 0, 1, 1],
-        [1, 1, 1, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1],
-        ]
+        # self.blueprint = [
+        # [1, 1, 1, 1, 1, 1],
+        # [1, 0, 0, 0, 1, 1],
+        # [1, 1, 1, 0, 2, 1],
+        # [1, 0, 0, 0, 1, 1],
+        # [1, 1, 1, 0, 1, 1],
+        # [1, 1, 1, 1, 1, 1],
+        # ]
 
         # same here, define start position with the same algo that
         # generates the maze.
+        # self.start_position = [1,1]
+        
+        self.blueprint = depth_first.generate(size_x, size_y)
         self.start_position = [1,1]
         self.start_heading = [0,1]
 
