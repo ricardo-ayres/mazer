@@ -13,11 +13,23 @@ size_y = int(maze_size[-1])
 
 m1 = maze.maze(size_x, size_y)
 p1 = player.player(m1.start_position, m1.start_heading)
+commands_count = 0
 
 print(m1.view(p1.position, p1.heading))
+print("commands: %s" % commands_count)
 while 1:
     # execute player commands:
     commands = raw_input("%s: " % p1.name).strip().strip(';').split(';')
+    commands_count += len(commands)
+
+    if "cheater" in commands:
+        for i in m1.blueprint:
+            print(" ".join(map(str, i)))
+        print("current player position: %s" % p1.position)
+    if "exit" in commands or "quit" in commands:
+        if "y" in raw_input("givin' up already? (y/n): "):
+            print("loser :)")
+            quit()
     for step in commands: 
         p1.execute(step.strip().split())
     
@@ -37,3 +49,5 @@ while 1:
         
     # update view
     print(m1.view(p1.position, p1.heading))
+    print("commands: %s" % commands_count)
+

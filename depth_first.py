@@ -27,8 +27,8 @@ def unvisited_neighbours(maze, cell):
 def remove_wall(maze, p1, p2):
     y_offset = p1[0]+((p2[0]-p1[0])/2)
     x_offset = p1[1]+((p2[1]-p1[1])/2)
-    if maze[y_offset][x_offset] == 1:
-        return x_offset, y_offset
+    
+    return x_offset, y_offset
 
 # implement randomized depth-first search algo
 def generate(x_size, y_size, debug=0):
@@ -98,6 +98,6 @@ def generate(x_size, y_size, debug=0):
             raw_input("loop end")
         
         # mark bottom right corner as exit
-        maze[(y_size*2)-2][(x_size*2)-2] = 2
+        maze[(y_size*2)-1][(x_size*2)-1] = 2
  
     return maze
