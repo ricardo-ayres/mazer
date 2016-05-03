@@ -1,5 +1,6 @@
 import cardinals
-import depth_first
+import depth_first, kruskal
+from random import choice
 
 class maze:
     """Maze class definition.
@@ -50,10 +51,21 @@ class maze:
         # same here, define start position with the same algo that
         # generates the maze.
         # self.start_position = [1,1]
-        
-        self.blueprint = depth_first.generate(size_x, size_y)
+        gen = choice(("depth_first", "kruskal"))
+        generators = {
+                "depth_first":depth_first,
+                "kruskal":kruskal,
+                #2:prim,
+                }
+        print("Generating a %s type maze..." % gen)
+        self.blueprint = generators[gen].generate(size_x, size_y)
         self.start_position = [1,1]
         self.start_heading = [0,1]
+        
+        # hardcode exit position for now:
+        self.blueprint[size_y*2-1][size_x*2-1] = 2
+
+        print("Maze successfully generated! Good luck!")
 
     def surroundings(self, position):
         y_pos = position[0]

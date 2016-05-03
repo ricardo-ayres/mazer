@@ -1,4 +1,4 @@
-def make_template(x_size, y_size):
+def make_template(x_size, y_size, empty_cell = 0):
     
     maze = []
 
@@ -33,7 +33,7 @@ def make_template(x_size, y_size):
     # build x_line with border walls:
     x_line = [1]
     for i in range(x_size):
-        x_line.append(2) # use 2 instead of zero to speed up depth_first search
+        x_line.append(empty_cell) # allow different cell marking for each algo
         x_line.append(1)
 
     # build maze wity y_size cells + top and bottom walls:

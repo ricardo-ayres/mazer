@@ -33,7 +33,7 @@ def remove_wall(maze, p1, p2):
 # implement randomized depth-first search algo
 def generate(x_size, y_size, debug=0):
     cell_stack = []
-    maze = maze_utils.make_template(x_size, y_size)
+    maze = maze_utils.make_template(x_size, y_size, 2)
     
     if debug:
         for i in maze:
@@ -96,8 +96,5 @@ def generate(x_size, y_size, debug=0):
             for i in maze:
                 print i
             raw_input("loop end")
-        
-        # mark bottom right corner as exit
-        maze[(y_size*2)-1][(x_size*2)-1] = 2
  
     return maze
